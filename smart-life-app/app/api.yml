@@ -1,0 +1,556 @@
+openapi: 3.0.3
+info:
+  title: Lifemanager API
+  version: 1.0.0
+  description: Complete RESTful API specification for the Lifemanager fitness and nutrition application modules.
+servers:
+  - url: http://localhost/api
+    description: Local development backend server
+paths:
+
+  # ==========================================
+  # === NUTRITION & MEALS MODULE ===
+  # ==========================================
+
+  /foods:
+    get:
+      summary: List all custom food items
+      tags: [Nutrition - Food Library]
+      responses:
+        '200':
+          description: Successfully retrieved list of food items.
+    post:
+      summary: Add a new global food item to the library
+      tags: [Nutrition - Food Library]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FoodInput'
+      responses:
+        '201':
+          description: Food item created successfully.
+
+  /foods/{food}:
+    parameters:
+      - name: food
+        in: path
+        required: true
+        description: The ID of the food item
+        schema:
+          type: integer
+    get:
+      summary: Get full details of one specific food item
+      tags: [Nutrition - Food Library]
+      responses:
+        '200':
+          description: Successfully retrieved food item details.
+    put:
+      summary: Edit an existing food item's information/macros
+      tags: [Nutrition - Food Library]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FoodInput'
+      responses:
+        '200':
+          description: Food item updated successfully.
+    delete:
+      summary: Delete a food item completely from the library
+      tags: [Nutrition - Food Library]
+      responses:
+        '204':
+          description: Food item deleted successfully.
+
+  /meals:
+    get:
+      summary: List template layouts
+      description: Returns baseline structural meal profile slots like "Breakfast", "Lunch", or "Snack".
+      tags: [Nutrition - Meal Templates]
+      responses:
+        '200':
+          description: Successfully retrieved template layouts.
+    post:
+      summary: Create a new baseline meal name slot
+      tags: [Nutrition - Meal Templates]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MealInput'
+      responses:
+        '201':
+          description: Meal template slot created successfully.
+
+  /meals/{meal}:
+    parameters:
+      - name: meal
+        in: path
+        required: true
+        description: The ID of the meal template
+        schema:
+          type: integer
+    get:
+      summary: View a single meal layout template
+      tags: [Nutrition - Meal Templates]
+      responses:
+        '200':
+          description: Successfully retrieved layout template.
+    put:
+      summary: Change the name profile of a template setup
+      tags: [Nutrition - Meal Templates]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MealInput'
+      responses:
+        '200':
+          description: Template name modified successfully.
+    delete:
+      summary: Destroy a meal layout category
+      tags: [Nutrition - Meal Templates]
+      responses:
+        '204':
+          description: Layout template purged from system.
+
+  /meal-sessions:
+    get:
+      summary: Look up historic dietary logging timelines
+      tags: [Nutrition - Daily Eating Logs]
+      responses:
+        '200':
+          description: Successfully retrieved meal logging timelines.
+    post:
+      summary: Record eating a food cluster right now
+      tags: [Nutrition - Daily Eating Logs]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MealSessionInput'
+      responses:
+        '201':
+          description: Meal occurrence session saved successfully.
+
+  /meal-sessions/{session}:
+    parameters:
+      - name: session
+        in: path
+        required: true
+        description: The ID of the historic meal session log
+        schema:
+          type: integer
+    get:
+      summary: Pull explicit details from a single locked lunch entry
+      tags: [Nutrition - Daily Eating Logs]
+      responses:
+        '200':
+          description: Successfully retrieved eating log details.
+    put:
+      summary: Update tracking timestamp notes or core parameters
+      tags: [Nutrition - Daily Eating Logs]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MealSessionInput'
+      responses:
+        '200':
+          description: Entry parameters adjusted successfully.
+    delete:
+      summary: Void out an eaten meal item timeline track log entirely
+      tags: [Nutrition - Daily Eating Logs]
+      responses:
+        '204':
+          description: Timeline tracking entry voided successfully.
+
+
+  # ==========================================
+  # === WEIGHT ROOM & PROGRESS MODULE ===
+  # ==========================================
+
+  /exercises:
+    get:
+      summary: Fetch the muscle groups library catalog
+      tags: [Fitness - Exercise Library]
+      responses:
+        '200':
+          description: Successfully retrieved custom movement templates catalog.
+    post:
+      summary: Create a new manual movement track baseline entry
+      tags: [Fitness - Exercise Library]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExerciseInput'
+      responses:
+        '201':
+          description: Movement item baseline saved.
+
+  /exercises/{exercise}:
+    parameters:
+      - name: exercise
+        in: path
+        required: true
+        description: The ID of the target library exercise
+        schema:
+          type: integer
+    get:
+      summary: Review specific documentation for one custom exercise
+      tags: [Fitness - Exercise Library]
+      responses:
+        '200':
+          description: Detailed information gathered for target item.
+    put:
+      summary: Fix typo names or reassigned dynamic muscle domains
+      tags: [Fitness - Exercise Library]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExerciseInput'
+      responses:
+        '200':
+          description: Document parameters fixed successfully.
+    delete:
+      summary: Clear an exercise index definition off the book records
+      tags: [Fitness - Exercise Library]
+      responses:
+        '204':
+          description: Movement item cleared off index library.
+
+  /workout-sessions:
+    get:
+      summary: Review calendar history of logged target session sets
+      tags: [Fitness - Gym Sessions]
+      responses:
+        '200':
+          description: Returns historical workout sessions.
+    post:
+      summary: Initialize a blank live workout session timer tracking index
+      tags: [Fitness - Gym Sessions]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkoutSessionCreate'
+      responses:
+        '201':
+          description: Workout live tracking initialized.
+
+  /workout-sessions/{session}:
+    parameters:
+      - name: session
+        in: path
+        required: true
+        description: The ID of the workout tracking session block
+        schema:
+          type: integer
+    get:
+      summary: Inspect a unique fitness track workout detail session
+      tags: [Fitness - Gym Sessions]
+      responses:
+        '200':
+          description: Complete metrics and notes extracted from tracking session.
+    put:
+      summary: Complete a gym session or modify notes summary logs
+      tags: [Fitness - Gym Sessions]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkoutSessionUpdate'
+      responses:
+        '200':
+          description: Session finalized or updated successfully.
+    delete:
+      summary: Wipe an entire session record block completely off history
+      tags: [Fitness - Gym Sessions]
+      responses:
+        '204':
+          description: Complete session and related child tracking variables wiped clean.
+
+  /sets:
+    get:
+      summary: Review historical set outputs globally
+      tags: [Fitness - Working Sets]
+      responses:
+        '200':
+          description: Global historical working output arrays fetched.
+    post:
+      summary: Append a newly executed load profile set to an active exercise
+      tags: [Fitness - Working Sets]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetInput'
+      responses:
+        '201':
+          description: Set entry successfully stamped to active index.
+
+  /sets/{set}:
+    parameters:
+      - name: set
+        in: path
+        required: true
+        description: The ID of the performance set log
+        schema:
+          type: integer
+    get:
+      summary: Isolate details of an automated working metric set entry
+      tags: [Fitness - Working Sets]
+      responses:
+        '200':
+          description: Specific single-set profile fetched.
+    put:
+      summary: Alter target metrics, RPE scores, or correction logs on the fly
+      tags: [Fitness - Working Sets]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetInput'
+      responses:
+        '200':
+          description: Working weight variations updated.
+    delete:
+      summary: Scrub off a specific working target dataset log out of a session
+      tags: [Fitness - Working Sets]
+      responses:
+        '204':
+          description: Set entry dropped cleanly out of log stack.
+
+  /body-metrics:
+    get:
+      summary: Extract raw matrix stats covering dynamic scale timelines
+      tags: [Progress Analytics]
+      responses:
+        '200':
+          description: Time-series biometric datasets extracted.
+    post:
+      summary: Append morning weights, muscle densities, or target metric updates
+      tags: [Progress Analytics]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyMetricInput'
+      responses:
+        '201':
+          description: Progression milestone successfully logged.
+
+  /body-metrics/{metric}:
+    parameters:
+      - name: metric
+        in: path
+        required: true
+        description: The ID of the biometric record card
+        schema:
+          type: integer
+    get:
+      summary: Isolate exact stats regarding a targeted measuring timeline
+      tags: [Progress Analytics]
+      responses:
+        '200':
+          description: Data profile collected for specific monitoring moment.
+    put:
+      summary: Adjust misread values, scales, percentages, or timeline keys
+      tags: [Progress Analytics]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyMetricInput'
+      responses:
+        '200':
+          description: Logging adjustments finalized.
+    delete:
+      summary: Drop an inaccurate check-in database tracking card snapshot
+      tags: [Progress Analytics]
+      responses:
+        '204':
+          description: Snapshot document card destroyed cleanly.
+
+# ==========================================
+# === SHARED CORE INPUT DATA SCHEMAS ===
+# ==========================================
+components:
+  schemas:
+    FoodInput:
+      type: object
+      required: [name, calories, protein, carbs, fats]
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          example: "Chicken Breast"
+        calories:
+          type: integer
+          minimum: 0
+          example: 165
+        protein:
+          type: number
+          format: float
+          minimum: 0.00
+          example: 31.00
+        carbs:
+          type: number
+          format: float
+          minimum: 0.00
+          example: 0.00
+        fats:
+          type: number
+          format: float
+          minimum: 0.00
+          example: 3.60
+
+    MealInput:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          example: "Mid-Day Lunch"
+
+    MealSessionInput:
+      type: object
+      required: [meal_id, eaten_at]
+      properties:
+        meal_id:
+          type: integer
+          description: Link ID pointing towards meals layout table.
+          example: 1
+        eaten_at:
+          type: string
+          format: date-time
+          example: "2026-05-28T13:30:00Z"
+        notes:
+          type: string
+          nullable: true
+          example: "High carb refeed after hard legs workout."
+
+    ExerciseInput:
+      type: object
+      required: [name, muscle_group]
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          example: "Incline Dumbbell Press"
+        muscle_group:
+          type: string
+          maxLength: 255
+          example: "Chest"
+
+    WorkoutSessionCreate:
+      type: object
+      required: [workout_layout_id, started_at]
+      properties:
+        workout_layout_id:
+          type: integer
+          example: 2
+        started_at:
+          type: string
+          format: date-time
+          example: "2026-05-28T16:00:00Z"
+
+    WorkoutSessionUpdate:
+      type: object
+      properties:
+        workout_layout_id:
+          type: integer
+          example: 2
+        started_at:
+          type: string
+          format: date-time
+          example: "2026-05-28T16:00:00Z"
+        finished_at:
+          type: string
+          format: date-time
+          nullable: true
+          example: "2026-05-28T17:15:00Z"
+        notes:
+          type: string
+          nullable: true
+          example: "Pumps felt intense, felt an outstanding mind-muscle connection."
+
+    SetInput:
+      type: object
+      required: [workout_session_id, exercise_id, weight, reps]
+      properties:
+        workout_session_id:
+          type: integer
+          example: 105
+        exercise_id:
+          type: integer
+          example: 14
+        weight:
+          type: number
+          format: float
+          minimum: 0.00
+          example: 42.50
+        reps:
+          type: integer
+          minimum: 1
+          example: 10
+        rpe:
+          type: integer
+          minimum: 1
+          maximum: 10
+          nullable: true
+          example: 9
+        pr:
+          type: number
+          format: float
+          nullable: true
+          example: 42.50
+        is_warmup:
+          type: boolean
+          default: false
+          example: false
+
+    BodyMetricInput:
+      type: object
+      required: [weight, measured_at]
+      properties:
+        weight:
+          type: number
+          format: float
+          minimum: 0.01
+          example: 84.70
+        body_fat_percentage:
+          type: number
+          format: float
+          minimum: 0.00
+          maximum: 100.00
+          nullable: true
+          example: 12.40
+        muscle_mass:
+          type: number
+          format: float
+          minimum: 0.00
+          nullable: true
+          example: 41.20
+        measured_at:
+          type: string
+          format: date-time
+          example: "2026-05-28T06:15:00Z"
