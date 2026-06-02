@@ -66,7 +66,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('foods', function (Blueprint $table) {
+        Schema::create('food', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // e.g., "Chicken Breast"
             $table->integer('calories');

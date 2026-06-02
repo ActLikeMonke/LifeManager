@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Meal extends Model
 {
-    protected $table = 'meals';
+    /** @use HasFactory<MealFactory> */
+    use HasFactory;
     protected $fillable = [
         'name',
     ];

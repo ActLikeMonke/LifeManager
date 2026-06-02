@@ -76,5 +76,6 @@ class MealController extends Controller
     {
         $meal->foods()->detach();
         $meal->delete();
+        return response()->noContent();
     }
 }
