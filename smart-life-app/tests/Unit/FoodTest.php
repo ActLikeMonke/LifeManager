@@ -126,6 +126,6 @@ class FoodTest extends BaseTestCase
         $response = $this->deleteJson("/api/foods/{$food->id}");
 
         $response->assertStatus(200);
-        $this->assertDatabaseMissing('foods', ['id' => $food->id]);
+        $this->assertDatabaseMissing('food', ['id' => $food->id]);
     }
 } 

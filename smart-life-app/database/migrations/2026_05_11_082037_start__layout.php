@@ -93,7 +93,7 @@ return new class extends Migration
         Schema::create('food_meal', function (Blueprint $table) {
             $table->id();
             $table->foreignId('meal_id')->constrained('meals')->onDelete('cascade');
-            $table->foreignId('food_id')->constrained('foods')->onDelete('cascade');
+            $table->foreignId('food_id')->constrained('food')->onDelete('cascade');
             $table->decimal('quantity', 8, 2); // e.g., 150 grams of chicken breast
         });
 

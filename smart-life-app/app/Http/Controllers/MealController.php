@@ -74,7 +74,6 @@ class MealController extends Controller
      */
     public function destroy(Meal $meal)
     {
-        $meal->foods()->detach();
         $meal->delete();
         return response()->noContent();
     }
