@@ -15,9 +15,9 @@ class UpsertMealRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'food' => 'required|array|min:1',
-            'food.*.id' => 'required|exists:food,id',
-            'food.*.quantity' => 'required|numeric',
+            'foods' => 'required|array|min:1',
+            'foods.*.id' => 'required|exists:food,id',
+            'foods.*.quantity' => 'required|numeric',
         ];
     }
 
@@ -25,12 +25,12 @@ class UpsertMealRequest extends FormRequest
     {
         return [
             'name.required' => 'The meal name is required.',
-            'food.required' => 'The food field is required.',
-            'food.array' => 'The food field must be an array.',
-            'food.*.id.required' => 'Each food item must have an ID.',
-            'food.*.id.exists' => 'Each food ID must exist in the foods table.',
-            'food.*.quantity.required' => 'Each food item must have a quantity.',
-            'food.*.quantity.numeric' => 'Each food quantity must be a number.',
+            'foods.required' => 'The food field is required.',
+            'foods.array' => 'The food field must be an array.',
+            'foods.*.id.required' => 'Each food item must have an ID.',
+            'foods.*.id.exists' => 'Each food ID must exist in the foods table.',
+            'foods.*.quantity.required' => 'Each food item must have a quantity.',
+            'foods.*.quantity.numeric' => 'Each food quantity must be a number.',
         ];
     }
 }

@@ -70,13 +70,13 @@ class MealTest extends BaseTestCase
     public function test_update_meal(): void
     {
         $meal = Meal::factory()->create();
-        $foods = Food::factory()->count(2)->create();
+        $food = Food::factory()->count(2)->create();
 
         $response = $this->putJson("/api/meals/{$meal->id}", [
             'name' => 'Updated Meal',
             'foods' => [
-                ['id' => $foods[0]->id, 'quantity' => 150],
-                ['id' => $foods[1]->id, 'quantity' => 250],
+                ['id' => $food[0]->id, 'quantity' => 150],
+                ['id' => $food[1]->id, 'quantity' => 250],
             ],
         ])->assertStatus(200);
 
@@ -84,8 +84,8 @@ class MealTest extends BaseTestCase
             'data' => [
                 'meal_name' => 'Updated Meal',
                 'foods' => [
-                    ['id' => $foods[0]->id, 'quantity' => 150],
-                    ['id' => $foods[1]->id, 'quantity' => 250],
+                    ['id' => $food[0]->id, 'quantity' => 150],
+                    ['id' => $food[1]->id, 'quantity' => 250],
                 ],
             ],
         ]);
