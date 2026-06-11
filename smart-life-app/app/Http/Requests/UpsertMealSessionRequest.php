@@ -21,7 +21,6 @@ class UpsertMealSessionRequest extends FormRequest
                 'exists:meals,id',
             ],
             'eaten_at' => [
-                'required',
                 'date',
             ],
             'notes' => [
@@ -39,7 +38,6 @@ class UpsertMealSessionRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'meal_id.required'  => 'An associated meal is required to log an eating session.',
             'meal_id.exists'    => 'The selected meal does not exist in our database.',
             'meal_id.integer'   => 'The meal ID must be a valid integer.',
             'eaten_at.required' => 'The date and time of the eating session is required.',

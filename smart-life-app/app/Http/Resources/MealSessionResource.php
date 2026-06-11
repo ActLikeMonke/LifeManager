@@ -18,11 +18,11 @@ class MealSessionResource extends JsonResource
     {
         return [
             'id'         => $this->id,
-            'eaten_at'   => $this->eaten_at ? $this->eaten_at->toIso8601String() : null, // Assuming eaten_at is cast to a datetime in your Model
+            'eaten_at'   => $this->eaten_at, // Assuming eaten_at is cast to a datetime in your Model
             'notes'      => $this->notes,
-            'created_at' => $this->created_at?->toIso8601String(),
-            'updated_at' => $this->updated_at?->toIso8601String(),
-            'meal'       => $this->load('meal')
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'meal'       => new MealResource($this->whenLoaded('meal')), // Assuming you have a MealResource for the related meal
         ];
     }
 }

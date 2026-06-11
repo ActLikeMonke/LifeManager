@@ -32,7 +32,11 @@ class MealSessionController extends Controller
 
     public function store(UpsertMealSessionRequest $request)
     {
-        $mealSession = MealSession::create($request->validated());
+        $validatedData = $request->validated();
+        if (!isset($validatedData['eaten_at'])) {
+            $validatedData['eaten_at'] = now();
+        }
+        $mealSession = MealSession::create($validatedData);
         
         return new MealSessionResource($mealSession);
     }
@@ -46,5 +50,11 @@ class MealSessionController extends Controller
         $mealSession->update($request->validated());
         
         return new MealSessionResource($mealSession);
+    }
+
+    public function destroy(MealSession $mealSession)
+    {
+        $mealSession->delete();   
+        return response()->noContent();
     }
 }
