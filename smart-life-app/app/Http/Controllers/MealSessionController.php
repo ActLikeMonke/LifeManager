@@ -12,14 +12,17 @@ class MealSessionController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
-        return MealSessionResource::collection(MealSession::all());
+        return MealSessionResource::collection(MealSession::with('meal')->get());
     }
 
     /**
      * Display the specified resource.
+     * @param MealSession $mealSession
+     * @return MealSessionResource
      */
     public function show(MealSession $mealSession)
     {
@@ -28,6 +31,8 @@ class MealSessionController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @param UpsertMealSessionRequest $request
+     * @return MealSessionResource
      */
 
     public function store(UpsertMealSessionRequest $request)
@@ -43,6 +48,9 @@ class MealSessionController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * @param UpsertMealSessionRequest $request
+     * @param MealSession $mealSession
+     * @return MealSessionResource
      */
 
     public function update(UpsertMealSessionRequest $request, MealSession $mealSession)
@@ -51,6 +59,11 @@ class MealSessionController extends Controller
         
         return new MealSessionResource($mealSession);
     }
+    /**
+     * Remove the specified resource from storage.
+     * @param MealSession $mealSession
+     * @return \Illuminate\Http\Response
+     */
 
     public function destroy(MealSession $mealSession)
     {
