@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodController;
-use App\Http\Controllers\MealController;
 use App\Http\Controllers\MealSessionController;
+use App\Http\Controllers\MealController;
 
 // for now we'll just put all our API routes here. In the future we will add authorization and then
 // we can move these
@@ -25,7 +25,7 @@ Route::delete('/meals/{meal}', [MealController::class, 'destroy']);
 Route::get('/meal-sessions', [MealSessionController::class, 'index']);
 Route::get('/meal-sessions/{meal_session}', [MealSessionController::class, 'show']);
 Route::post('/meal-sessions', [MealSessionController::class, 'store']);
-Route::match(['put', 'patch'], '/meal-sessions/{meal_session}', [MealSessionController::class, 'update']);
+Route::put('/meal-sessions/{meal_session}', [MealSessionController::class, 'update']);
 Route::delete('/meal-sessions/{meal_session}', [MealSessionController::class, 'destroy']);
 
 Route::middleware('auth:sanctum')->group(function () {
