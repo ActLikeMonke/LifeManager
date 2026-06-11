@@ -25,8 +25,8 @@ class UpsertMealRequest extends FormRequest
     {
         return [
             'name.required' => 'The meal name is required.',
-            'food.required' => 'The foods field is required.',
-            'food.array' => 'The foods field must be an array.',
+            'food.required' => 'The food field is required.',
+            'food.array' => 'The food field must be an array.',
             'food.*.id.required' => 'Each food item must have an ID.',
             'food.*.id.exists' => 'Each food ID must exist in the foods table.',
             'food.*.quantity.required' => 'Each food item must have a quantity.',
