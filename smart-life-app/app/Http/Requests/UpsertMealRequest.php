@@ -16,7 +16,7 @@ class UpsertMealRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'food' => 'required|array|min:1',
-            'food.*.id' => 'required|exists:foods,id',
+            'food.*.id' => 'required|exists:food,id',
             'food.*.quantity' => 'required|numeric',
         ];
     }
