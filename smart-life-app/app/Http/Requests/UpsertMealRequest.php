@@ -5,13 +5,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpsertMealRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true; // You can add your authorization logic here
-    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -22,9 +15,9 @@ class UpsertMealRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'foods' => 'required|array',
-            'foods.*.id' => 'required|exists:foods,id',
-            'foods.*.quantity' => 'required|numeric',
+            'food' => 'required|array|min:1',
+            'food.*.id' => 'required|exists:foods,id',
+            'food.*.quantity' => 'required|numeric',
         ];
     }
 
@@ -32,12 +25,12 @@ class UpsertMealRequest extends FormRequest
     {
         return [
             'name.required' => 'The meal name is required.',
-            'foods.required' => 'The foods field is required.',
-            'foods.array' => 'The foods field must be an array.',
-            'foods.*.id.required' => 'Each food item must have an ID.',
-            'foods.*.id.exists' => 'Each food ID must exist in the foods table.',
-            'foods.*.quantity.required' => 'Each food item must have a quantity.',
-            'foods.*.quantity.numeric' => 'Each food quantity must be a number.',
+            'food.required' => 'The foods field is required.',
+            'food.array' => 'The foods field must be an array.',
+            'food.*.id.required' => 'Each food item must have an ID.',
+            'food.*.id.exists' => 'Each food ID must exist in the foods table.',
+            'food.*.quantity.required' => 'Each food item must have a quantity.',
+            'food.*.quantity.numeric' => 'Each food quantity must be a number.',
         ];
     }
 }
