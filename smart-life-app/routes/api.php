@@ -28,6 +28,13 @@ Route::post('/meal-sessions', [MealSessionController::class, 'store']);
 Route::put('/meal-sessions/{meal_session}', [MealSessionController::class, 'update']);
 Route::delete('/meal-sessions/{meal_session}', [MealSessionController::class, 'destroy']);
 
+// Body Metric routes
+Route::get('/body-metrics', [\App\Http\Controllers\BodyMetricController::class, 'index']);
+Route::get('/body-metrics/{body_metric}', [\App\Http\Controllers\BodyMetricController::class, 'show']);
+Route::post('/body-metrics', [\App\Http\Controllers\BodyMetricController::class, 'store']);
+Route::put('/body-metrics/{body_metric}', [\App\Http\Controllers\BodyMetricController::class, 'update']);
+Route::delete('/body-metrics/{body_metric}', [\App\Http\Controllers\BodyMetricController::class, 'destroy']);
+
 Route::middleware('auth:sanctum')->group(function () {
     // Future protected routes will go here
 });
