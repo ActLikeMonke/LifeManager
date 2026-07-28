@@ -26,8 +26,11 @@ class BodyMetricController extends Controller
      */
     public function store(BodyMetricRequest $request): BodyMetricResource
     {
-        $metric = BodyMetric::create($request->validated());
-
+        $metric = new BodyMetric;
+        $metric->weight = $request->input('weight');
+        $metric->body_fat_percentage = $request->input('body_fat_percentage');
+        $metric->muscle_mass = $request->input('muscle_mass');
+        $metric->save();
         return new BodyMetricResource($metric);
     }
 

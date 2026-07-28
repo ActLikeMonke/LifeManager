@@ -102,7 +102,7 @@ return new class extends Migration
             $table->decimal('weight', 8, 2); // in kg
             $table->decimal('body_fat_percentage', 5, 2)->nullable(); // e.g., 15.25%
             $table->decimal('muscle_mass', 8, 2)->nullable(); // in kg
-            $table->timestamp('measured_at');
+            $table->timestamp('measured_at')->default(now());
             $table->timestamps();
         });
     }

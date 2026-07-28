@@ -25,7 +25,6 @@ class BodyMetricRequest extends FormRequest
             'weight' => ['required', 'numeric', 'min:0.01'],
             'body_fat_percentage' => ['nullable', 'numeric', 'min:0.00', 'max:100.00'],
             'muscle_mass' => ['nullable', 'numeric', 'min:0.00', 'lt:weight'],
-            'measured_at' => ['required', 'date'],
         ];
     }
 }
