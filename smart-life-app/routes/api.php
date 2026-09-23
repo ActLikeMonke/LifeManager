@@ -5,6 +5,7 @@ use App\Http\Controllers\FoodController;
 use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\MealSessionController;
 use App\Http\Controllers\MealController;
+use App\Http\Controllers\SetController;
 use App\Http\Controllers\WorkoutSessionController;
 
 // for now we'll just put all our API routes here. In the future we will add authorization and then
@@ -43,6 +44,13 @@ Route::get('/workout-sessions/{workout_session}', [WorkoutSessionController::cla
 Route::post('/workout-sessions', [WorkoutSessionController::class, 'store']);
 Route::match(['put', 'patch'], '/workout-sessions/{workout_session}', [WorkoutSessionController::class, 'update']);
 Route::delete('/workout-sessions/{workout_session}', [WorkoutSessionController::class, 'destroy']);
+
+// Set routes
+Route::get('/sets', [SetController::class, 'index']);
+Route::get('/sets/{set}', [SetController::class, 'show']);
+Route::post('/sets', [SetController::class, 'store']);
+Route::match(['put', 'patch'], '/sets/{set}', [SetController::class, 'update']);
+Route::delete('/sets/{set}', [SetController::class, 'destroy']);
 
 // Body Metric routes
 Route::get('/body-metrics', [\App\Http\Controllers\BodyMetricController::class, 'index']);

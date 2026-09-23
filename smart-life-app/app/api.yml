@@ -353,6 +353,18 @@ paths:
       responses:
         '200':
           description: Working weight variations updated.
+    patch:
+      summary: Partially update a logged working set
+      tags: [Fitness - Working Sets]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetInput'
+      responses:
+        '200':
+          description: Working weight variations updated.
     delete:
       summary: Scrub off a specific working target dataset log out of a session
       tags: [Fitness - Working Sets]
