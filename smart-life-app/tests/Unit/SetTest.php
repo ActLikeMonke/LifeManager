@@ -28,14 +28,13 @@ class SetTest extends TestCase
             'is_warmup' => false,
         ])->assertCreated();
         $this->patchJson("/api/sets/{$set->id}", [
-            'workout_session_id' => $set->workout_session_id,
-            'exercise_id' => $set->exercise_id,
             'weight' => 50,
-            'reps' => 8,
-            'rpe' => 9,
-            'pr' => 50,
-            'is_warmup' => false,
         ])->assertOk();
+        $this->assertDatabaseHas('sets', [
+            'id' => $set->id,
+            'weight' => '50.00',
+            'reps' => $set->reps,
+        ]);
         $this->putJson("/api/sets/{$set->id}", [
             'workout_session_id' => $set->workout_session_id,
             'exercise_id' => $set->exercise_id,
