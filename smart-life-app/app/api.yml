@@ -499,6 +499,7 @@ components:
 
     WorkoutSessionUpdate:
       type: object
+      required: [workout_layout_id, started_at]
       properties:
         workout_layout_id:
           type: integer

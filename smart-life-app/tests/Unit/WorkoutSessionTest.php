@@ -27,6 +27,12 @@ class WorkoutSessionTest extends TestCase
             'finished_at' => '2026-09-23 09:00:00',
             'notes' => 'Completed session',
         ])->assertOk();
+        $this->putJson("/api/workout-sessions/{$session->id}", [
+            'workout_layout_id' => $session->workout_layout_id,
+            'started_at' => $session->started_at->toDateTimeString(),
+            'finished_at' => '2026-09-23 09:30:00',
+            'notes' => 'Updated session',
+        ])->assertOk();
         $this->deleteJson("/api/workout-sessions/{$session->id}")->assertNoContent();
     }
 

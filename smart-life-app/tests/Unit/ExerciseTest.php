@@ -24,6 +24,10 @@ class ExerciseTest extends TestCase
             'name' => 'Front Squat',
             'muscle_group' => 'Legs',
         ])->assertOk();
+        $this->putJson("/api/exercises/{$exercise->id}", [
+            'name' => 'Back Squat',
+            'muscle_group' => 'Legs',
+        ])->assertOk();
         $this->deleteJson("/api/exercises/{$exercise->id}")->assertNoContent();
     }
 
