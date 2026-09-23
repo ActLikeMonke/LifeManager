@@ -9,6 +9,8 @@ class WorkoutSession extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'workout_layout_id',
         'started_at',
