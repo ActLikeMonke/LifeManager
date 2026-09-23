@@ -223,6 +223,18 @@ paths:
       responses:
         '200':
           description: Document parameters fixed successfully.
+    patch:
+      summary: Partially update an exercise in the library
+      tags: [Fitness - Exercise Library]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExerciseInput'
+      responses:
+        '200':
+          description: Document parameters fixed successfully.
     delete:
       summary: Clear an exercise index definition off the book records
       tags: [Fitness - Exercise Library]
@@ -250,9 +262,9 @@ paths:
         '201':
           description: Workout live tracking initialized.
 
-  /workout-sessions/{session}:
+  /workout-sessions/{workout_session}:
     parameters:
-      - name: session
+      - name: workout_session
         in: path
         required: true
         description: The ID of the workout tracking session block
@@ -266,6 +278,18 @@ paths:
           description: Complete metrics and notes extracted from tracking session.
     put:
       summary: Complete a gym session or modify notes summary logs
+      tags: [Fitness - Gym Sessions]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkoutSessionUpdate'
+      responses:
+        '200':
+          description: Session finalized or updated successfully.
+    patch:
+      summary: Partially update or finalize a gym session
       tags: [Fitness - Gym Sessions]
       requestBody:
         required: true
@@ -475,6 +499,7 @@ components:
 
     WorkoutSessionUpdate:
       type: object
+      required: [workout_layout_id, started_at]
       properties:
         workout_layout_id:
           type: integer
