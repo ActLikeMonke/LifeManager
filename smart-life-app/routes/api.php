@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\MealSessionController;
 use App\Http\Controllers\MealController;
+use App\Http\Controllers\WorkoutSessionController;
 
 // for now we'll just put all our API routes here. In the future we will add authorization and then
 // we can move these
@@ -13,6 +15,13 @@ Route::get('/foods/{food}', [FoodController::class, 'show']);
 Route::post('/foods', [FoodController::class, 'store']);
 Route::put('/foods/{food}', [FoodController::class, 'update']);
 Route::delete('/foods/{food}', [FoodController::class, 'destroy']);
+
+// Exercise routes
+Route::get('/exercises', [ExerciseController::class, 'index']);
+Route::get('/exercises/{exercise}', [ExerciseController::class, 'show']);
+Route::post('/exercises', [ExerciseController::class, 'store']);
+Route::match(['put', 'patch'], '/exercises/{exercise}', [ExerciseController::class, 'update']);
+Route::delete('/exercises/{exercise}', [ExerciseController::class, 'destroy']);
 
 //Meal routes
 Route::get('/meals', [MealController::class, 'index']);
@@ -27,6 +36,13 @@ Route::get('/meal-sessions/{meal_session}', [MealSessionController::class, 'show
 Route::post('/meal-sessions', [MealSessionController::class, 'store']);
 Route::put('/meal-sessions/{meal_session}', [MealSessionController::class, 'update']);
 Route::delete('/meal-sessions/{meal_session}', [MealSessionController::class, 'destroy']);
+
+// Workout Session routes
+Route::get('/workout-sessions', [WorkoutSessionController::class, 'index']);
+Route::get('/workout-sessions/{workout_session}', [WorkoutSessionController::class, 'show']);
+Route::post('/workout-sessions', [WorkoutSessionController::class, 'store']);
+Route::match(['put', 'patch'], '/workout-sessions/{workout_session}', [WorkoutSessionController::class, 'update']);
+Route::delete('/workout-sessions/{workout_session}', [WorkoutSessionController::class, 'destroy']);
 
 // Body Metric routes
 Route::get('/body-metrics', [\App\Http\Controllers\BodyMetricController::class, 'index']);
